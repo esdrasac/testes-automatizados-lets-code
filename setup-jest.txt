@@ -1,0 +1,20 @@
+Start do projeto:
+
+    yarn init -y
+
+Instalação de dependencias
+    
+    yarn add jest @types/jest -D
+
+Iniciar Jest
+
+    yarn jest --init 
+
+jest.config.ts
+
+    export default {
+        clearMocks: true,
+        roots: ['<rootDir>/tests'],
+        collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
+        coverageProvider: "v8",
+    };
