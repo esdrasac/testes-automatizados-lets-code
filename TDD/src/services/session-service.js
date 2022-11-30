@@ -1,14 +1,7 @@
-const User = require('../models/User')
-
+const jwt = require('jsonwebtoken')
 class SessionService{
-    static async userExists(email) {
-        const user = await User.find({ email })
-        
-        if(user) {
-            return true
-        }
-
-        return false
+    static generateToken(email) {
+        return jwt.sign({ email }, 'abc')
     }
 }
 
