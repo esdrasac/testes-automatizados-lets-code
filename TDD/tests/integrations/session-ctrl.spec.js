@@ -1,17 +1,16 @@
 const mongoose = require('mongoose')
 const { faker } = require('@faker-js/faker')
-const User = require('../../../src/models/User')
-const { getReqMock, getResMock, getResponses } = require('../../mocks/session-mocks')
-const { generateUserMock } = require('../../mocks/users-mock')
+const User = require('../../src/models/User')
+const { getReqMock, getResMock, getResponses } = require('../mocks/session-mocks')
+const { generateUserMock } = require('../mocks/users-mock')
 
-const SessionController = require('../../../src/controllers/session-ctrl')
+const SessionController = require('../../src/controllers/session-ctrl')
 
 const userDataMock = generateUserMock()
 
 describe('[Integration] Session Controller', () => {
     beforeAll(async () => {
         await mongoose.connect('mongodb+srv://letscode:letscode@cluster0.nwudzbw.mongodb.net/letscode?retryWrites=true&w=majority')
-        
         await User.create(userDataMock)
     })
 
