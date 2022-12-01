@@ -59,6 +59,14 @@ describe('User Service "checkPassword"', () => {
         expect(isValidPassword).toBe(false)
     }) 
 
+    it('Should returns false user not found', async () => {
+        jest.spyOn(User, 'findOne').mockImplementationOnce(UserMock.findOne)
+
+        const isValidPassword = await UserService.checkPassword('invalid@lets.com.br', '123456')
+
+        expect(isValidPassword).toBe(false)
+    })
+
     it('Should returns true if password is valid', async () => {
         jest.spyOn(User, 'findOne').mockImplementationOnce(UserMock.findOne)
 

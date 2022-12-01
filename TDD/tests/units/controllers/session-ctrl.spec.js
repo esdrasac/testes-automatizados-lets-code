@@ -1,5 +1,6 @@
 const SessionController = require('../../../src/controllers/session-ctrl')
 const UserService = require('../../../src/services/user-service')
+const { getReqMock, getResMock, getResponses } = require('../../mocks/session-mocks')
 
 class UserServiceMock {
     static async userExists(email) {        
@@ -12,44 +13,6 @@ class UserServiceMock {
 
     static async checkPassword(email, password) {
         return password === '123456'
-    }
-}
-
-const getReqMock = (body) => {
-    return {
-        body: body || {}
-    }
-}
-
-const getResMock = () => {
-    return {
-        status: (status) => {
-            return {
-                json: (obj) => {
-                    return {
-                        data: obj,
-                        status
-                    }
-                } 
-            }
-        }
-    }
-}
-
-const getResponses = () => {
-    return {
-        invalidEmail: {
-            message: 'Email is not provided or is invalid'
-        },
-        invalidPassword: {
-            message: 'Password is not provided'
-        },
-        invalidCredentials: {
-            message: 'Credenciais inválidas'
-        },
-        successBody: {
-            token: 'any_token'
-        }
     }
 }
 
