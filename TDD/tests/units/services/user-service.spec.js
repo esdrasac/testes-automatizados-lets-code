@@ -18,6 +18,9 @@ class UserMock {
 
         return null
     }
+    static async userCreate({email}){
+        return true
+    }
 }
 
 describe('User Service "userExists"', () => {
@@ -73,5 +76,57 @@ describe('User Service "checkPassword"', () => {
         const isValidPassword = await UserService.checkPassword('esdras@lets.com.br', '123456')
 
         expect(isValidPassword).toBe(true)
+    })
+})
+
+describe('User Service "create"', () => {
+    //it('Should return false if user exist', )
+    
+    it('Should return true if create an user', async () =>  {
+        jest.spyOn(UserService, 'userExists').mockImplementationOnce(() => false)
+
+        jest.spyOn(User, 'create').mockImplementationOnce(()=> {
+            return {
+                "name": "alguem",
+                "email": "abc@abc.com",
+                "password": "triste",
+                "_id": "638ea57734bac791a9286581",
+                "__v": 0
+              }
+        })
+
+        const isCreateTrue = await UserService.create({email: 'abc@abc.com.br'})
+
+        expect(isCreateTrue).toMatchObject({
+            "name": "alguem",
+            "email": "abc@abc.com",
+            "password": "triste",
+            "_id": "638ea57734bac791a9286581",
+            "__v": 0
+          })
+    })
+
+    it('Should return false if create an user', async () =>  {
+        jest.spyOn(UserService, 'userExists').mockImplementationOnce(() => true)   
+        
+    try {
+        await UserService.create({email: 'abc@abc.com.br'})
+        console.log({ status: 404, message: 'User Already exists' })
+    } catch (error){
+        expect(error).toMatchObject( { status: 404, message: 'User Already exists' })
+    }
+       
+    })
+})
+
+describe('User service update Password',() => {
+    it('Password OK', async() => {
+    jest.spyOn(UserService, "userExist").mockImplementationOnce(( ) => false)
+    })
+    it('', async() => {
+
+    })
+    it('', async() => {
+
     })
 })
